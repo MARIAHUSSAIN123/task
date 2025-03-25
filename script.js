@@ -1,23 +1,27 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,  signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+import { getDatabase,ref,push,onChildAdded,remove 
+} from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
 
+// Firebase Configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDrrtaBVZsXdOewYAZpno57CaDUXnfLPZI",
     authDomain: "chatapp-assignment-e6c47.firebaseapp.com",
     databaseURL: "https://chatapp-assignment-e6c47-default-rtdb.firebaseio.com",
     projectId: "chatapp-assignment-e6c47",
-    storageBucket: "chatapp-assignment-e6c47.firebasestorage.app",
+    storageBucket: "chatapp-assignment-e6c47.app",
     messagingSenderId: "917567801196",
     appId: "1:917567801196:web:506da5c572971f18f81549",
     measurementId: "G-CQE6927414"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 const provider = new GoogleAuthProvider();
 
+// Signup Function
 function signup() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
@@ -26,6 +30,7 @@ function signup() {
         .catch(error => alert(error.message));
 }
 
+// Login Function
 function login() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
@@ -34,35 +39,74 @@ function login() {
         .catch(error => alert(error.message));
 }
 
+// Google Sign-In
 function googleSignIn() {
     signInWithPopup(auth, provider)
         .then(() => { window.location.href = "popup.html"; })
         .catch(error => alert(error.message));
 }
 
+// Enter Chat Function
 function enterChat() {
-    const email = document.getElementById("popupEmail").value;
     const username = document.getElementById("popupUsername").value;
     localStorage.setItem("username", username);
     window.location.href = "chatApp.html";
 }
 
+// Send Message Function
 function sendMessage() {
     const message = document.getElementById("message").value;
     const username = localStorage.getItem("username");
-    push(ref(db, "messages"), { username, message });
-    document.getElementById("message").value = "";
+    if (message.trim() === "") return; // Empty message handling
+
+    push(ref(db, "messages"), { username, message })
+        .then(() => {
+            document.getElementById("message").value = "";
+        })
+        .catch(error => alert("Error sending message: " + error.message));
 }
 
+// Delete Message Function
+function deleteMessage(messageId, messageElement) {
+    remove(ref(db, `messages/${messageId}`))
+        .then(() => {
+            messageElement.remove(); // UI se bhi remove karega
+        })
+        .catch(error => alert("Error deleting message: " + error.message));
+}
+
+// Load Messages on Chat Page
 window.onload = function() {
     const chatBox = document.getElementById("chat-box");
     onChildAdded(ref(db, "messages"), (snapshot) => {
         const data = snapshot.val();
-        const messageElement = document.createElement("div");
-        messageElement.textContent = `${data.username}: ${data.message}`;
-        chatBox.appendChild(messageElement);
+        const messageId = snapshot.key; // Unique key for deleting messages
+
+        // Create message container
+        const messageContainer = document.createElement("div");
+        messageContainer.classList.add("message-container");
+
+        // Message Text
+        const messageText = document.createElement("span");
+        messageText.textContent = `${data.username}: ${data.message}`;
+
+        // Delete Button
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "🗑️";
+        deleteButton.classList.add("delete-btn");
+        deleteButton.onclick = () => deleteMessage(messageId, messageContainer);
+
+        // Append elements
+        messageContainer.appendChild(messageText);
+        messageContainer.appendChild(deleteButton);
+        chatBox.appendChild(messageContainer);
+
+        // Auto-scroll to latest message
+        chatBox.scrollTop = chatBox.scrollHeight;
     });
 }
+
+// Expose Functions to Window (for button clicks)
 window.signup = signup;
 window.login = login;
 window.googleSignIn = googleSignIn;
