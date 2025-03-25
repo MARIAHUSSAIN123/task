@@ -1,5 +1,5 @@
 body {
-    background-color: black;
+    background-color: blue;
     color: white;
     font-family: Arial, sans-serif;
     display: flex;
@@ -35,11 +35,11 @@ input, button {
     border-radius: 5px;
 }
 button {
-    background-color: blue;
+    background-color: golden;
     color: white;
     border: none;
     cursor: pointer;
 }
 button:hover {
-    background-color: darkblue;
+    background-color: pink;
 }
