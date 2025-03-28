@@ -75,36 +75,58 @@ function deleteMessage(messageId, messageElement) {
         .catch(error => alert("Error deleting message: " + error.message));
 }
 
-// Load Messages on Chat Page
-window.onload = function() {
+window.onload = function () {
     const chatBox = document.getElementById("chat-box");
+    const currentUser = localStorage.getItem("username");
+
     onChildAdded(ref(db, "messages"), (snapshot) => {
         const data = snapshot.val();
-        const messageId = snapshot.key; // Unique key for deleting messages
+        const messageId = snapshot.key;
 
         // Create message container
         const messageContainer = document.createElement("div");
         messageContainer.classList.add("message-container");
 
+        // Username (Upar Show Hoga)
+        const usernameElement = document.createElement("span");
+        usernameElement.textContent = data.username;
+        usernameElement.classList.add("username");
+
         // Message Text
         const messageText = document.createElement("span");
-        messageText.textContent = `${data.username}: ${data.message}`;
+        messageText.textContent = data.message;
+        messageText.classList.add("message");
 
         // Delete Button
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "🗑️";
+        const deleteButton = document.createElement("span");
+        deleteButton.innerHTML = "🗑️";
         deleteButton.classList.add("delete-btn");
         deleteButton.onclick = () => deleteMessage(messageId, messageContainer);
 
-        // Append elements
-        messageContainer.appendChild(messageText);
-        messageContainer.appendChild(deleteButton);
-        chatBox.appendChild(messageContainer);
+        // Wrap Message + Delete Button
+        const messageWrapper = document.createElement("div");
+        messageWrapper.classList.add("message-wrapper");
+        messageWrapper.appendChild(messageText);
+        messageWrapper.appendChild(deleteButton);
 
-        // Auto-scroll to latest message
+        // Add to Message Container
+        messageContainer.appendChild(usernameElement);  // Pehly username
+        messageContainer.appendChild(messageWrapper);   // Neeche message + delete
+
+        // Align Message Left-Right
+        if (data.username === currentUser) {
+            messageContainer.classList.add("sent");
+        } else {
+            messageContainer.classList.add("received");
+        }
+
+        chatBox.appendChild(messageContainer);
         chatBox.scrollTop = chatBox.scrollHeight;
     });
-}
+};
+
+
+
 
 // Expose Functions to Window (for button clicks)
 window.signup = signup;
