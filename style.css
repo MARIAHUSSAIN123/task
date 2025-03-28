@@ -1,45 +1,122 @@
 body {
-    background-color: black;
-    color: black;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+  background-color: rgb(240, 235, 235);
+  color: black;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
-.container, .chat-container {
-    background-color: #0b0b93;
-    padding: 30px;
-    border-radius: 10px;
-    text-align: center;
-    width: 500px;
-    max-width: 90%;
+.container{
+  background-color: #04040a;
+  color:white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  width: 500px;
+  max-width: 90%;
 }
 .form-container {
-    width: 400px;
+  width: 400px;
 }
 #chat-box {
-    background-color: #dbe1e5;
-    height: 400px;
-    overflow-y: auto;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
+  background-image: url(./Wallpaper\ Designs\ For\ Whatsapp\ at\ Gemaasbury.jpeg);
+  height: 400px;
+  overflow-y: auto;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  color: #a9bfb0;
+  font-family: 'Times New Roman', Times, serif;
+  font-family: 16px;
 }
 input, button {
-    display: block;
-    width: calc(100% - 20px);
-    margin: 10px auto;
-    padding: 12px;
-    border-radius: 5px;
+  display: block;
+  width: calc(100% - 20px);
+  margin: 10px auto;
+  padding: 12px;
+  border-radius: 5px;
+  background-color:rgb(8, 6, 6);
+  color: white;
 }
 button {
-    background-color:#4e4005;
-    color: white;
-    border: none;
-    cursor: pointer;
+  background-color:#0f0f0e;
+  color:white;
+  border: none;
+  cursor: pointer;
+  border: 2px solid gray;
 }
 button:hover {
-    background-color: rgb(16, 168, 188);
+  background-color: rgb(194, 237, 246);
+}
+.chat-container{
+  background-color: #04040a;
+  color:white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  width: 500px;
+  max-width: 90%;
+}
+body {
+  background-color: rgb(240, 235, 235);
+  color: black;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+.container{
+  background-color: #04040a;
+  color:white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  width: 500px;
+  max-width: 90%;
+}
+.form-container {
+  width: 400px;
+}
+#chat-box {
+  background-image: url(./Wallpaper\ Designs\ For\ Whatsapp\ at\ Gemaasbury.jpeg);
+  height: 400px;
+  overflow-y: auto;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  color: #a9bfb0;
+  font-family: 'Times New Roman', Times, serif;
+  font-family: 16px;
+}
+input, button {
+  display: block;
+  width: calc(100% - 20px);
+  margin: 10px auto;
+  padding: 12px;
+  border-radius: 5px;
+  background-color:rgb(8, 6, 6);
+  color: white;
+}
+button {
+  background-color:#0f0f0e;
+  color:white;
+  border: none;
+  cursor: pointer;
+  border: 2px solid gray;
+}
+button:hover {
+  background-color: rgb(194, 237, 246);
+}
+.chat-container{
+  background-color: #04040a;
+  color:white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  width: 500px;
+  max-width: 90%;
 }
