@@ -91,9 +91,9 @@ button:hover {
   background-color: rgb(15, 203, 128);
   align-self: flex-start;
   text-align: left;
-  color: blue;
+  color: white;
 }
-.delete-btn {
+  .delete-btn {
   cursor: pointer;
   margin-left: 10px;
 }
