@@ -77,50 +77,49 @@ function deleteMessage(messageId, messageElement) {
 
 window.onload = function () {
     const chatBox = document.getElementById("chat-box");
-    const currentUser = localStorage.getItem("username");
+    const currentUsername = localStorage.getItem("username");
 
     onChildAdded(ref(db, "messages"), (snapshot) => {
         const data = snapshot.val();
         const messageId = snapshot.key;
 
-        // Create message container
-        const messageContainer = document.createElement("div");
-        messageContainer.classList.add("message-container");
+        const container = document.createElement("div");
+        container.classList.add("message-container");
+        container.classList.add(data.username === currentUsername ? "sent" : "received");
 
-        // Username (Upar Show Hoga)
-        const usernameElement = document.createElement("span");
-        usernameElement.textContent = data.username;
-        usernameElement.classList.add("username");
+        const wrapper = document.createElement("div");
+        wrapper.classList.add("message-wrapper");
 
-        // Message Text
-        const messageText = document.createElement("span");
-        messageText.textContent = data.message;
-        messageText.classList.add("message");
+        // Circle with First Letter of Username
+        const letterCircle = document.createElement("div");
+        letterCircle.classList.add("letter-circle");
+        letterCircle.textContent = data.username.charAt(0).toUpperCase(); // First letter of username
 
-        // Delete Button
-        const deleteButton = document.createElement("span");
-        deleteButton.innerHTML = "🗑️";
-        deleteButton.classList.add("delete-btn");
-        deleteButton.onclick = () => deleteMessage(messageId, messageContainer);
+        const textWrapper = document.createElement("div");
 
-        // Wrap Message + Delete Button
-        const messageWrapper = document.createElement("div");
-        messageWrapper.classList.add("message-wrapper");
-        messageWrapper.appendChild(messageText);
-        messageWrapper.appendChild(deleteButton);
+        const name = document.createElement("div");
+        name.classList.add("username");
+        name.textContent = data.username;
 
-        // Add to Message Container
-        messageContainer.appendChild(usernameElement);  // Pehly username
-        messageContainer.appendChild(messageWrapper);   // Neeche message + delete
+        const msg = document.createElement("div");
+        msg.textContent = data.message;
 
-        // Align Message Left-Right
-        if (data.username === currentUser) {
-            messageContainer.classList.add("sent");
-        } else {
-            messageContainer.classList.add("received");
+        textWrapper.appendChild(name);
+        textWrapper.appendChild(msg);
+
+        wrapper.appendChild(letterCircle); // Add circle with letter
+        wrapper.appendChild(textWrapper);
+
+        if (data.username === currentUsername) {
+            const del = document.createElement("span");
+            del.innerHTML = "🗑️";
+            del.classList.add("delete-btn");
+            del.onclick = () => remove(ref(db, `messages/${messageId}`)).then(() => container.remove());
+            wrapper.appendChild(del);
         }
 
-        chatBox.appendChild(messageContainer);
+        container.appendChild(wrapper);
+        chatBox.appendChild(container);
         chatBox.scrollTop = chatBox.scrollHeight;
     });
 };
@@ -134,3 +133,17 @@ window.login = login;
 window.googleSignIn = googleSignIn;
 window.enterChat = enterChat;
 window.sendMessage = sendMessage;
+
+
+const themeToggleBtn = document.getElementById("themeToggleBtn");
+    let isDark = false;
+    themeToggleBtn.addEventListener("click", () => {
+        if (isDark) {
+            document.body.style.backgroundColor = "white";
+            document.body.style.color = "black";
+        } else {
+            document.body.style.backgroundColor = "black";
+            document.body.style.color = "white";
+        }
+        isDark = !isDark;
+    });
