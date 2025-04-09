@@ -1,45 +1,81 @@
+/* Glassy Neon Background */
 body {
-  background-color: rgb(240, 235, 235);
-  color: black;
-  font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   margin: 0;
-}
-
-.container {
-  background-color: #04040a;
-  color: white;
-  padding: 30px;
-  border-radius: 10px;
-  text-align: center;
-  width: 650px;
-  max-width: 90%;
-}
-
-.form-container {
-  width: 400px;
-}
-
-#chat-box {
-  background-image: url(./Wallpaper\ Designs\ For\ Whatsapp\ at\ Gemaasbury.jpeg);
-  background-repeat: no-repeat;
-  background-size: cover; /* Make sure the path is correct */
-  height: 400px;
-  overflow-y: auto;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  color: #a9bfb0;
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 16px; /* Fixed incorrect font-size */
+  padding: 0;
+  background: radial-gradient(circle at top right, #2e026d, #000 80%);
+  height: 100vh;
   display: flex;
-  flex-direction: column; /* Messages will be aligned properly */
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
+  align-items: center;
 }
 
-/* Input & Button Styling */
+/* Container for Centering */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Card Style */
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 25px;
+  padding: 40px 30px;
+  width: 650px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  text-align: center;
+  position: relative;
+}
+
+/* Logo/Icon */
+.logo {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+/* Heading */
+.card h2 {
+  font-size: 20px;
+  margin-bottom: 30px;
+  color: #fff;
+}
+h1{
+  font-size: 40px;
+  margin-bottom:5px;
+}
+
+
+/* Buttons */
+.btn {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 12px;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.btn img {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
 input, button {
   display: block;
   width: calc(100% - 20px);
@@ -49,20 +85,6 @@ input, button {
   background-color: rgb(8, 6, 6);
   color: white;
 }
-
-button {
-  background-color: #0f0f0e;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border: 2px solid gray;
-}
-
-button:hover {
-  background-color: rgb(194, 237, 246);
-}
-
-/* Message Styles */
 .message-container {
   max-width: 60%;
   padding: 8px;
@@ -82,15 +104,15 @@ button:hover {
 
 /* Sent Messages (Right Side) */
 .sent {
-  background-color: #080b0a; /* WhatsApp Green */
+  background-color: #d2e8e1; /* WhatsApp Green */
   align-self: flex-end;
   text-align: right;
-  color: white;
+  color: rgb(8, 6, 6);
 }
 
 /* Received Messages (Left Side) */
 .received {
-  background-color: rgb(4, 79, 84);
+  background-color: rgb(11, 21, 21);
   align-self: flex-start;
   text-align: left;
   color: white;
@@ -169,7 +191,7 @@ body.light-theme {
 
 body.dark-theme {
   transition: background-color 0.5s ease, color 0.5s ease;
-  background-color: #181818;
+  background-color: #16be89;
   color: #ddd;
 }
 /* Style for the circle with first letter */
@@ -177,7 +199,7 @@ body.dark-theme {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: #4CAF50; /* You can change the background color */
+  background-color: #13aab5; /* You can change the background color */
   color: white;
   font-size: 16px;
   font-weight: bold;
@@ -185,5 +207,30 @@ body.dark-theme {
   justify-content: center;
   align-items: center;
   margin-right: 10px;
+}
+#chat-box {
+  background-color: rgba(255, 255, 255, 0.05);
+  background-repeat: no-repeat;
+  background-size: cover; /* Make sure the path is correct */
+  height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  color: #a9bfb0;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 16px; /* Fixed incorrect font-size */
+  display: flex;
+  flex-direction: column; /* Messages will be aligned properly */
+}
+.delete-icon {
+  width: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: filter 0.3s ease;
+}
+
+.delete-icon:hover {
+  filter: brightness(0) saturate(100%) invert(27%) sepia(98%) saturate(7495%) hue-rotate(358deg) brightness(95%) contrast(103%);
 }
 
