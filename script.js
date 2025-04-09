@@ -93,7 +93,7 @@ window.onload = function () {
         // Circle with First Letter of Username
         const letterCircle = document.createElement("div");
         letterCircle.classList.add("letter-circle");
-        letterCircle.textContent = data.username.charAt(0).toUpperCase(); // First letter of username
+        letterCircle.textContent = data.username.charAt(0).toUpperCase();
 
         const textWrapper = document.createElement("div");
 
@@ -107,15 +107,25 @@ window.onload = function () {
         textWrapper.appendChild(name);
         textWrapper.appendChild(msg);
 
-        wrapper.appendChild(letterCircle); // Add circle with letter
+        wrapper.appendChild(letterCircle);
         wrapper.appendChild(textWrapper);
 
         if (data.username === currentUsername) {
-            const del = document.createElement("span");
-            del.innerHTML = "🗑️";
-            del.classList.add("delete-btn");
-            del.onclick = () => remove(ref(db, `messages/${messageId}`)).then(() => container.remove());
-            wrapper.appendChild(del);
+            const delImg = document.createElement("img");
+            delImg.src = "delete.png"; // 👈 yahan apni image ka path do
+            delImg.classList.add("delete-icon");
+            delImg.title = "Delete message";
+
+            delImg.addEventListener("click", () => {
+                const confirmDelete = confirm("Do you really want to delete this message?");
+                if (confirmDelete) {
+                    remove(ref(db, `messages/${messageId}`))
+                        .then(() => container.remove())
+                        .catch(error => alert("Error deleting message: " + error.message));
+                }
+            });
+
+            wrapper.appendChild(delImg);
         }
 
         container.appendChild(wrapper);
@@ -123,6 +133,7 @@ window.onload = function () {
         chatBox.scrollTop = chatBox.scrollHeight;
     });
 };
+
 
 
 
